@@ -4,9 +4,9 @@ use std::{
 };
 
 fn main() {
-    let ping_listen_port = TcpListener::bind("127.0.0.1:8000").unwrap();
+    let ping_listen_port = "8000";
 
-    for stream in ping_listen_port.incoming() {
+    for stream in TcpListener::bind(["127.0.0.1", ping_listen_port].join(":")).unwrap().incoming() {
         let _stream = stream.unwrap();
 
         handle_connection(_stream);
@@ -21,5 +21,6 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|line| !line.is_empty())
         .collect();
 
-    println!("Request: {:#?}", http_request);
+    // println!("Request: {:#?}", http_request);
+    println!("{}", http_request[0]);
 }
