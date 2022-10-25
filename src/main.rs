@@ -21,9 +21,9 @@ fn handle_connection(mut stream: TcpStream) {
 		.take_while(|line| !line.is_empty())
 		.collect();
 
-	let splited = http_request[0].split_whitespace().collect::<Vec<&str>>()[1];
+	let uri = http_request[0].split_whitespace().collect::<Vec<&str>>()[1];
     
-	if splited == "/ping" {
+	if uri == "/ping" {
 		println!("{}", "HTTP GET 202");
 	} else {
 		println!("{}", "Error 404")
